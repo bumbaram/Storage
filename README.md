@@ -1,0 +1,1 @@
+== Nodejs, mongoose small example
