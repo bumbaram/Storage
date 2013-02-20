@@ -1,5 +1,28 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+	.container-fluid
+		.row-fluid
+			.span1
+			.span11
+				header.header
+					h1 Upload new file
+		.row-fluid
+			.span1
+			.span5
+				form(action="/file", method="post", type="multipart/form-data").form-horizontal
+					.control-group
+						label.control-label Name
+						.controls
+							input(type="text", placeholder="new file name")
+					.control-group
+						label.control-label Description
+						.controls
+							input(type="text", placeholder="new file description")
+					.control-group
+						.controls
+							input(type="file")
+					.control-group
+						.controls
+							button(type="submit").btn.btn-primary.pull-right Upload
+	
