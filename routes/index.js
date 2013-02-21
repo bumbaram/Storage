@@ -13,7 +13,16 @@ var BASE_DIR = __dirname + "/../public/files/";
 
 
 exports.index = function(req, res){
-	res.render('index', { title: 'Express' });
+	var files = File.find({}, function(err, docs) {
+		if (err) {
+			console.error("db error");
+			res.end();
+			return;
+		}
+
+		console.dir(docs);
+		res.render('index', {title: 'All files', data: docs});
+	});
 };
 	
 exports.getFile = function(req, res) {
@@ -40,7 +49,7 @@ exports.addFile = function(req, res) {
 
 	var file = new File({
 		name: data.name,
-		description: data.description,
+		description: req.body.description,
 		path: path
 	});
 

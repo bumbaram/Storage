@@ -24,3 +24,23 @@ block content
 					.control-group
 						.controls
 							input(type="submit", value="Upload to server").btn.btn-success 
+		.row-fluid
+			.span1
+			.span10
+				table.table.table-hover
+					thead
+						th ID
+						th Name
+						th Description
+						th Path
+					tbody
+						each item in data 
+							tr
+								td #{item._id}
+								td #{item.name}
+								td #{item.description}
+								td #{item.path}
+
+			.span2
+
+
