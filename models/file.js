@@ -8,10 +8,7 @@ var fileSchema = new Schema({
 });
 
 fileSchema.methods = {
-	sayHello: function() {
-		console.log("Hello from " + this.name + " file");
-	}
-}
+};
 
 var File = mongoose.model("File", fileSchema);
 

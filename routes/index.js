@@ -2,22 +2,17 @@
 /*
  * GET home page.
  */
-var fs 		= require('fs')
+var mongoose	= require('mongoose')
+	, fs 	= require('fs')
 	, util	= require('util')
-	, mongoose = require('mongoose')
-	, File = mongoose.model('File');
+	, File 	= mongoose.model('File');
 
 var MAX_UPLOAD_SIZE = 1048576 * 10; // 10 mb
 var BASE_DIR = __dirname + "/../public/files/";
 
+
+
 exports.index = function(req, res){
-	// var File = mongoose.model('File');
-	var test = {
-		name: "test file",
-		description: "description for test",
-		path: "/tmp/asdfa"
-	}
-	var f = new File(test);
 	res.render('index', { title: 'Express' });
 };
 	
@@ -41,11 +36,7 @@ exports.addFile = function(req, res) {
 		return;
 	}
 
-	console.dir(req.files);
-
 	var path = BASE_DIR + (data.path).split('/').slice(-1)[0];
-
-	console.log("new file path: " + path);
 
 	var file = new File({
 		name: data.name,

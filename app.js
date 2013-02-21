@@ -2,9 +2,18 @@
 /**
  * Module dependencies.
  */
+var mongoose = require('mongoose')
+  , fs = require('fs');
+
+
+// load mongoose models;
+var MODELS_DIR = __dirname + "/models/";
+
+fs.readdirSync(MODELS_DIR).forEach(function(file) { 
+  require(MODELS_DIR + file);
+});
 
 var express = require('express')
-  , models = require('./models')
   , routes = require('./routes')
   , user = require('./routes/user')
   , http = require('http')
@@ -52,3 +61,4 @@ db.on('error', console.error.bind(console, "Database error"));
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
 });
+  
