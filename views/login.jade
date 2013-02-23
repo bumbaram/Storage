@@ -1,0 +1,19 @@
+extends layout
+
+block append styles
+	link(rel='stylesheet', href='/stylesheets/login.css')
+
+block content
+	.container
+		.login-container
+			section#login
+				form(method="post", action="/login")
+					h1 Login form
+					div 
+						input(type="text", placeholder="Username", id="username")
+					div
+						input(type="password", placeholder="password", id="password")
+					div.clearfix
+						input(type="submit", value="Log in")
+						a(href="#") Lost you password
+						a(href="#") Register

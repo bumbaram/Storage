@@ -19,11 +19,10 @@ exports.index = function(req, res){
 			res.end();
 			return;
 		}
-
-		console.dir(docs);
 		res.render('index', {title: 'All files', data: docs});
 	});
 };
+
 	
 exports.getFile = function(req, res) {
 	var file = req.params.id;

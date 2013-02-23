@@ -45,9 +45,11 @@ app.configure('development', function(){
 app.get('/', routes.index);
 app.get('/users', user.list);
 app.get('/file/:id', routes.getFile);
+app.get('/login', user.login);
+
 
 app.post('/file', routes.addFile);
-
+app.post('/login', user.auth);
 
 // Connect to database
 mongoose.connect("mongodb://localhost/storage");
