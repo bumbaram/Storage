@@ -4,11 +4,10 @@
  */
 
 exports.list = function(req, res){
-  res.send("respond with a resource");
+	res.send("respond with a resource");
 };
 
 exports.login = function(req, res) {
-	console.log("Login form");
 	res.render('login', {title: 'login form'});
 };
 

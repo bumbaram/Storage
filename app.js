@@ -16,11 +16,48 @@ fs.readdirSync(MODELS_DIR).forEach(function(file) {
 var express = require('express')
   , routes = require('./routes')
   , user = require('./routes/user')
+  , error = require('./routes/error')
   , http = require('http')
   , path = require('path')
+  , passport = require('passport')
+  , LocalStrategy = require('passport-local').Strategy
   , mongoose = require('mongoose');
 
 var app = express();
+
+/* 
+  Passport authtification
+*/
+
+var users = [
+  { id: 1, username: "bumbaram", password: "pass", email: "me@lagner.ru"},
+  { id: 2, username: "test", password: "test", email: "test@test.com"}
+];
+
+passport.serializeUser(function(user, done) {
+  console.log("serialize user: " + user.id);
+  done(null, user.id);
+});
+
+passport.deserializeUser(function(id, done) {
+  console.log("deserialize user: " + id);
+  done(null, {user: "bumbaram", id: id});
+});
+
+var checkLogin = function(username, password, done) {
+  console.log("check login: " + username);
+  if (username == "bumbaram" && password == "pass") {
+    console.log("auth successfull");
+    done(null, users[0]);
+  } else {
+    console.log("auth failed");
+    done(null, false, {message: "wrong user"});
+  }
+};
+
+passport.use(new LocalStrategy(checkLogin));
+  
+
 
 app.configure(function(){
   app.set('port', process.env.PORT || 3000);
@@ -33,6 +70,8 @@ app.configure(function(){
   app.use(express.methodOverride());
   app.use(express.cookieParser('very secret Service'));
   app.use(express.session());
+  app.use(passport.initialize());
+  app.use(passport.session());
   app.use(app.router);
   app.use(express.static(path.join(__dirname, 'public')));
 });
@@ -41,15 +80,22 @@ app.configure('development', function(){
   app.use(express.errorHandler());
 });
 
+
+
 // setup routes
 app.get('/', routes.index);
 app.get('/users', user.list);
 app.get('/file/:id', routes.getFile);
 app.get('/login', user.login);
+app.get('/error', error.notExist);
 
 
 app.post('/file', routes.addFile);
-app.post('/login', user.auth);
+app.post('/login', 
+  passport.authenticate('local', {failureRedirect: '/error', failureFlash: true}),
+  function(req, res) {
+    res.redirect('/');
+});
 
 // Connect to database
 mongoose.connect("mongodb://localhost/storage");
