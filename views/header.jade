@@ -1,0 +1,19 @@
+- var user = user || {};
+- var username = user.username;
+
+.navbar.navbar-fixed-top.navbar-inverse
+	.navbar-inner
+		.container
+			ul.nav
+				li.active 
+					a(href="/") Home
+			- if (username)
+				ul.nav.pull-right
+					li.dropdown
+						a(href="#", data-toggle="dropdown").dropdown-toggle #{username}
+							b.caret
+							ul.dropdown-menu
+								li 
+									a(href="/settings") Settings
+								li
+									a(href="/logout") Logout
