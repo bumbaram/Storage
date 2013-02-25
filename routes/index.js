@@ -13,14 +13,13 @@ var BASE_DIR = __dirname + "/../public/files/";
 
 
 exports.index = function(req, res){
-	console.dir(req.user);
 	var files = File.find({}, function(err, docs) {
 		if (err) {
 			console.error("db error");
 			res.end();
 			return;
 		}
-		res.render('index', {title: 'All files', data: docs});
+		res.render('index', {title: 'All files', data: docs, user: req.user});
 	});
 };
 

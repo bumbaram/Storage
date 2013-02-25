@@ -21,6 +21,7 @@ var express = require('express')
   , path = require('path')
   , passport = require('passport')
   , LocalStrategy = require('passport-local').Strategy
+  //, flash = require('connect-flash') // nessesory for passport work
   , mongoose = require('mongoose');
 
 var app = express();
@@ -35,13 +36,16 @@ var users = [
 ];
 
 passport.serializeUser(function(user, done) {
-  console.log("serialize user: " + user.id);
+  console.log("serialize user: ");
+  console.dir(user);
   done(null, user.id);
 });
 
 passport.deserializeUser(function(id, done) {
-  console.log("deserialize user: " + id);
-  done(null, {user: "bumbaram", id: id});
+  console.log("deserialize user: ");
+  console.dir(id);
+
+  done(null, users[0]);
 });
 
 var checkLogin = function(username, password, done) {
@@ -53,6 +57,15 @@ var checkLogin = function(username, password, done) {
     console.log("auth failed");
     done(null, false, {message: "wrong user"});
   }
+};
+
+var requireAuth = function(req, res, next) {
+  console.dir(req.user);
+  console.log("isAuthenticated: " + req.isAuthenticated());
+  if (req.isAuthenticated()) {
+    return next();
+  }
+  res.redirect('/login');
 };
 
 passport.use(new LocalStrategy(checkLogin));
@@ -70,6 +83,7 @@ app.configure(function(){
   app.use(express.methodOverride());
   app.use(express.cookieParser('very secret Service'));
   app.use(express.session());
+  //app.use(flash());
   app.use(passport.initialize());
   app.use(passport.session());
   app.use(app.router);
@@ -83,19 +97,23 @@ app.configure('development', function(){
 
 
 // setup routes
-app.get('/', routes.index);
-app.get('/users', user.list);
+app.get('/', requireAuth, routes.index);
 app.get('/file/:id', routes.getFile);
+app.get('/users', user.list);
+app.get('/account', user.getUser);
 app.get('/login', user.login);
+app.get('/register', user.register);
 app.get('/error', error.notExist);
+app.get('/logout', function(req, res) { req.logout(); res.redirect('/login'); });
 
 
 app.post('/file', routes.addFile);
 app.post('/login', 
-  passport.authenticate('local', {failureRedirect: '/error', failureFlash: true}),
+  passport.authenticate('local', {failureRedirect: '/login', failureFlash: false}),
   function(req, res) {
     res.redirect('/');
 });
+app.post('/register', user.addUser);
 
 // Connect to database
 mongoose.connect("mongodb://localhost/storage");

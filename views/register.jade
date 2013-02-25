@@ -1,0 +1,25 @@
+extends layout
+
+block append styles
+	link(rel='stylesheet', href='/stylesheets/login.css')
+
+block content
+	.container
+		.login-container
+			section#login
+				form(method="post", action="/register")
+					h1 Register form
+					div
+						input(type="text", name="nickname", placeholder="Nickname")#inputNickname
+					div
+						input(type="text", name="name", placeholder="Name")#inputName
+					div
+						input(type="text", name="lastname", placeholder="Last name")#inputLastname
+					div
+						input(type="text", name="email", placeholder="Email")#inputEmail
+					div
+						input(type="password", name="password", placeholder="Password")#inputPass
+					div
+						input(type="password", placeholder="Password again")#inputPassAgain
+					div.clearfix
+						input(type="submit", value="Register").btn.btn-success

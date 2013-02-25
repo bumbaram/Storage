@@ -1,12 +1,11 @@
 body {
+	color: #7E7E7E;
 	background: #DCDDDF url("/images/login-background.png");
-
 }
 h1 {
 	font-size: 28px;
 	color:#563D64;
 }
-
 #login {
 	background: #f9f9f9;
 	background: -moz-linear-gradient(top,  rgba(248,248,248,1) 0%, rgba(249,249,249,1) 100%);

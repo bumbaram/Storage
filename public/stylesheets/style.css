@@ -1,7 +1,6 @@
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-  background: url('/images/login-background.png');
+	padding-top: 60px;
+	background: url('/images/login-background.png');
 }
 .container-fluid {
 	box-shadow: 0 1px 0 #fff inset;
@@ -9,7 +8,4 @@ body {
 	background: #f9f9f9;
 	padding: 25px 0 0;
 }
-
-a {
-  color: #00B7FF;
-}
+	
