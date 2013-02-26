@@ -1,7 +1,5 @@
-
-/*
- * GET users listing.
- */
+var mongoose 	= require('mongoose')
+	, User 		= mongoose.model('User');
 
 exports.list = function(req, res){
 	res.send("respond with a resource");
@@ -28,6 +26,29 @@ exports.register = function(req, res) {
 };
 
 exports.addUser = function(req, res) {
-	console.dir(req.body);
-	res.end("Registered");
+	if (!req.body) {
+		res.redirect('/error');
+		return;
+	}
+
+	// check data
+
+	var u = new User(req.body);
+	console.dir(u);
+	u.save(function(err, user) {
+		if (err) {
+			// redirect to internal server error page
+			res.redirect('/error');
+			return;
+		}
+		// "Success" message should be added
+		res.redirect('/login');
+	});
+};
+
+exports.settings = function(req, res) {
+	res.render('settings', {
+		title: "User settings",
+		user: req.user,
+	});
 };

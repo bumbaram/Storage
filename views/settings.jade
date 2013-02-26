@@ -1,0 +1,22 @@
+extends layout
+
+- var user = user || {};
+- var nickname = user.nickname || "anonimous";
+- var name = user.name || "";
+- var lastname = user.lastname || "";
+- var email = user.email || "";
+
+block content
+	.container
+		.row 
+			div Title
+				span #{title}
+		//- .row
+			div Nickname
+				span #{nickname}
+			div Name 
+				span #{name}
+			div Lastname 
+				span #{lastname}
+			div Email 
+				span #{email}

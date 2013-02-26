@@ -20,48 +20,53 @@ var express = require('express')
   , http = require('http')
   , path = require('path')
   , passport = require('passport')
-  , LocalStrategy = require('passport-local').Strategy
-  //, flash = require('connect-flash') // nessesory for passport work
-  , mongoose = require('mongoose');
+  , LocalStrategy = require('passport-local').Strategy;
 
 var app = express();
 
 /* 
   Passport authtification
 */
-
-var users = [
-  { id: 1, username: "bumbaram", password: "pass", email: "me@lagner.ru"},
-  { id: 2, username: "test", password: "test", email: "test@test.com"}
-];
-
 passport.serializeUser(function(user, done) {
-  console.log("serialize user: ");
-  console.dir(user);
-  done(null, user.id);
+  done(null, user._id);
 });
 
 passport.deserializeUser(function(id, done) {
-  console.log("deserialize user: ");
-  console.dir(id);
-
-  done(null, users[0]);
+  var User = mongoose.model('User');
+  User.findById(id, function(err, args) {
+    if (err) {
+      console.log(err);
+      done(err);
+      return;
+    }
+    done(err, args);
+  });
 });
 
-var checkLogin = function(username, password, done) {
-  console.log("check login: " + username);
-  if (username == "bumbaram" && password == "pass") {
-    console.log("auth successfull");
-    done(null, users[0]);
-  } else {
-    console.log("auth failed");
-    done(null, false, {message: "wrong user"});
-  }
+var checkLogin = function(nickname, password, done) {
+  var User = mongoose.model('User');
+
+  User.findOne({nickname: nickname}, function(err, args) {
+    if (err) {
+      console.error(err);
+      done(err); 
+      return;
+    }
+    if (!args) {
+      console.info("user not found");
+      done(null, false, "User not found");
+      return;
+    }
+    if (args.password == password) {
+      done(null, args);
+    } else {
+      console.info("password wrong");
+      done(null, false, "Wrong password");
+    }
+  });
 };
 
 var requireAuth = function(req, res, next) {
-  console.dir(req.user);
-  console.log("isAuthenticated: " + req.isAuthenticated());
   if (req.isAuthenticated()) {
     return next();
   }
@@ -103,6 +108,7 @@ app.get('/users', user.list);
 app.get('/account', user.getUser);
 app.get('/login', user.login);
 app.get('/register', user.register);
+app.get('/settings', user.settings);
 app.get('/error', error.notExist);
 app.get('/logout', function(req, res) { req.logout(); res.redirect('/login'); });
 

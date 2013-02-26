@@ -3,10 +3,12 @@ var Schema 		= mongoose.Schema;
 
 var userSchema = new Schema({
 	nickname: String,
+	password: String,
 	name: String,
-	secondName: String,
-	lastName: String,
-	email: String
+	secondname: String,
+	lastname: String,
+	email: String,
+	roles: []
 });
 
 userSchema.methods = {	

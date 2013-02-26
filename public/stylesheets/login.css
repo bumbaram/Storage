@@ -1,6 +1,7 @@
 body {
 	color: #7E7E7E;
 	background: #DCDDDF url("/images/login-background.png");
+	padding-top: 100px;
 }
 h1 {
 	font-size: 28px;
@@ -133,8 +134,8 @@ h1 {
 	border: 1px solid #ed1c24;
 	outline: none;
 }
-#username { background-position: 10px 10px !important }
-#password { background-position: 10px -53px !important }
+#username { background-position: 10px 15px !important }
+#password { background-position: 10px -50px !important }
 #login form input[type="submit"] {
 	background: rgb(254,231,154);
 	background: -moz-linear-gradient(top,  rgba(254,231,154,1) 0%, rgba(254,193,81,1) 100%);

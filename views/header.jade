@@ -1,5 +1,5 @@
 - var user = user || {};
-- var username = user.username;
+- var nickname = user.nickname;
 
 .navbar.navbar-fixed-top.navbar-inverse
 	.navbar-inner
@@ -7,10 +7,10 @@
 			ul.nav
 				li.active 
 					a(href="/") Home
-			- if (username)
+			- if (nickname)
 				ul.nav.pull-right
 					li.dropdown
-						a(href="#", data-toggle="dropdown").dropdown-toggle #{username}
+						a(href="#", data-toggle="dropdown").dropdown-toggle #{nickname}
 							b.caret
 							ul.dropdown-menu
 								li 
