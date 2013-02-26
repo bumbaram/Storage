@@ -82,13 +82,12 @@ app.configure(function(){
   app.set('views', __dirname + '/views');
   app.set('view engine', 'jade');
   app.set('models', __dirname + '/models');
-  app.use(express.favicon());
+  app.use(express.favicon(__dirname + "/public/favicon.png"));
   app.use(express.logger('dev'));
   app.use(express.bodyParser());
   app.use(express.methodOverride());
   app.use(express.cookieParser('very secret Service'));
   app.use(express.session());
-  //app.use(flash());
   app.use(passport.initialize());
   app.use(passport.session());
   app.use(app.router);
@@ -104,16 +103,16 @@ app.configure('development', function(){
 // setup routes
 app.get('/', requireAuth, routes.index);
 app.get('/file/:id', routes.getFile);
-app.get('/users', user.list);
-app.get('/account', user.getUser);
+app.get('/users', requireAuth, user.list);
+app.get('/account', requireAuth, user.getUser);
 app.get('/login', user.login);
 app.get('/register', user.register);
-app.get('/settings', user.settings);
+app.get('/settings', requireAuth, user.settings);
 app.get('/error', error.notExist);
 app.get('/logout', function(req, res) { req.logout(); res.redirect('/login'); });
 
 
-app.post('/file', routes.addFile);
+app.post('/file', requireAuth, routes.addFile);
 app.post('/login', 
   passport.authenticate('local', {failureRedirect: '/login', failureFlash: false}),
   function(req, res) {
