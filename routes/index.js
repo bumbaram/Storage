@@ -13,7 +13,9 @@ var BASE_DIR = __dirname + "/../public/files/";
 
 
 exports.index = function(req, res){
-	var files = File.find({}, function(err, docs) {
+	var id = req.user._id;
+
+	var files = File.find({owner: id}, function(err, docs) {
 		if (err) {
 			console.error("db error");
 			res.end();
@@ -37,6 +39,7 @@ exports.addFile = function(req, res) {
 	}
 
 	var data = req.files.file;
+	var owner = req.user._id;
 
 	if (data.size == 0) {
 		fs.unlink(data.path);
@@ -49,7 +52,8 @@ exports.addFile = function(req, res) {
 	var file = new File({
 		name: data.name,
 		description: req.body.description,
-		path: path
+		path: path,
+		owner: owner
 	});
 
 	var is = fs.createReadStream(data.path);

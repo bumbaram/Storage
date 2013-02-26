@@ -8,7 +8,7 @@ var userSchema = new Schema({
 	secondname: String,
 	lastname: String,
 	email: String,
-	roles: []
+	roles: [String]
 });
 
 userSchema.methods = {	

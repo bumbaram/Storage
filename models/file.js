@@ -4,7 +4,8 @@ var Schema = mongoose.Schema;
 var fileSchema = new Schema({
 	name: String,
 	description: String,
-	path: String
+	path: String,
+	owner: Schema.Types.ObjectId
 });
 
 fileSchema.methods = {
