@@ -102,11 +102,14 @@ app.configure('development', function(){
 
 // setup routes
 app.get('/', requireAuth, routes.index);
+
+app.get('/files', requireAuth, routes.getAllFiles);
+app.get('/files/:id', requireAuth, routes.getFileById);
+
 app.get('/file/:id', routes.getFile);
 app.get('/users', requireAuth, user.list);
 app.get('/account', requireAuth, user.getUser);
 app.get('/login', user.login);
-app.get('/register', user.register);
 app.get('/settings', requireAuth, user.settings);
 app.get('/error', error.notExist);
 app.get('/logout', function(req, res) { req.logout(); res.redirect('/login'); });
