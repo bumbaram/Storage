@@ -3,11 +3,8 @@ body {
 	background: #DCDDDF url("/images/login-background.png");
 	padding-top: 100px;
 }
-h1 {
-	font-size: 28px;
-	color:#563D64;
-}
-#login {
+
+.login-container {
 	background: #f9f9f9;
 	background: -moz-linear-gradient(top,  rgba(248,248,248,1) 0%, rgba(249,249,249,1) 100%);
 	background: -webkit-linear-gradient(top,  rgba(248,248,248,1) 0%,rgba(249,249,249,1) 100%);
@@ -29,22 +26,22 @@ h1 {
 	width: 400px;
 }
 
-#login h1 {
+h1 {
 	color: #7E7E7E;
 	font: bold 25px Helvetica, Arial, sans-serif;
 	letter-spacing: -0.05em;
 	line-height: 20px;
 	margin: 10px 0 30px;
 }
-#login h1:before,
-#login h1:after {
+h1:before,
+h1:after {
 	content: "";
 	height: 1px;
 	position: absolute;
 	top: 10px;
 	width: 27%;
 }
-#login h1:after {
+h1:after {
 	background: rgb(126,126,126);
 	background: -moz-linear-gradient(left,  rgba(126,126,126,1) 0%, rgba(255,255,255,1) 100%);
 	background: -webkit-linear-gradient(left,  rgba(126,126,126,1) 0%,rgba(255,255,255,1) 100%);
@@ -53,7 +50,7 @@ h1 {
 	background: linear-gradient(left,  rgba(126,126,126,1) 0%,rgba(255,255,255,1) 100%);
     right: 0;
 }
-#login h1:before {
+h1:before {
 	background: rgb(126,126,126);
 	background: -moz-linear-gradient(right,  rgba(126,126,126,1) 0%, rgba(255,255,255,1) 100%);
 	background: -webkit-linear-gradient(right,  rgba(126,126,126,1) 0%,rgba(255,255,255,1) 100%);
@@ -62,8 +59,8 @@ h1 {
 	background: linear-gradient(right,  rgba(126,126,126,1) 0%,rgba(255,255,255,1) 100%);
     left: 0;
 }
-#login:after,
-#login:before {
+.login-container section:after,
+.login-container section:before {
 	background: #f9f9f9;
 	background: -moz-linear-gradient(top,  rgba(248,248,248,1) 0%, rgba(249,249,249,1) 100%);
 	background: -webkit-linear-gradient(top,  rgba(248,248,248,1) 0%,rgba(249,249,249,1) 100%);
@@ -79,7 +76,8 @@ h1 {
 	position: absolute;
 	width: 100%;
 }
-#login:after {
+
+.login-container section:after {
 	-webkit-transform: rotate(2deg);
 	-moz-transform: rotate(2deg);
 	-ms-transform: rotate(2deg);
@@ -88,7 +86,7 @@ h1 {
 	top: 0;
 	z-index: -1;
 }
-#login:before {
+.login-container section:before {
 	-webkit-transform: rotate(-3deg);
 	-moz-transform: rotate(-3deg);
 	-ms-transform: rotate(-3deg);
@@ -97,9 +95,9 @@ h1 {
 	top: 0;
 	z-index: -2;
 }
-#login form { margin: 0 20px; position: relative }
-#login form input[type="text"],
-#login form input[type="password"] {
+form { margin: 0 20px; position: relative }
+form input[type="text"],
+form input[type="password"] {
 	-webkit-border-radius: 3px;
 	-moz-border-radius: 3px;
 	-ms-border-radius: 3px;
@@ -123,8 +121,8 @@ h1 {
 	padding: 15px 10px 15px 40px;
 	width: 80%;
 }
-#login form input[type="text"]:focus,
-#login form input[type="password"]:focus {
+form input[type="text"]:focus,
+form input[type="password"]:focus {
 	-webkit-box-shadow: 0 0 2px #ed1c24 inset;
 	-moz-box-shadow: 0 0 2px #ed1c24 inset;
 	-ms-box-shadow: 0 0 2px #ed1c24 inset;
@@ -134,9 +132,9 @@ h1 {
 	border: 1px solid #ed1c24;
 	outline: none;
 }
-#username { background-position: 10px 15px !important }
-#password { background-position: 10px -50px !important }
-#login form input[type="submit"] {
+.hpicture { background-position: 10px 15px !important }
+.ppicture { background-position: 10px -50px !important }
+form input[type="submit"] {
 	background: rgb(254,231,154);
 	background: -moz-linear-gradient(top,  rgba(254,231,154,1) 0%, rgba(254,193,81,1) 100%);
 	background: -webkit-linear-gradient(top,  rgba(254,231,154,1) 0%,rgba(254,193,81,1) 100%);
@@ -165,7 +163,7 @@ h1 {
 	text-shadow: 0 1px 0 rgba(255,255,255,0.5);
 	width: 120px;
 }
-#content form input[type="submit"]:hover {
+form input[type="submit"]:hover {
 	background: rgb(254,193,81);
 	background: -moz-linear-gradient(top,  rgba(254,193,81,1) 0%, rgba(254,231,154,1) 100%);
 	background: -webkit-linear-gradient(top,  rgba(254,193,81,1) 0%,rgba(254,231,154,1) 100%);
@@ -174,7 +172,7 @@ h1 {
 	background: linear-gradient(top,  rgba(254,193,81,1) 0%,rgba(254,231,154,1) 100%);
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fec151', endColorstr='#fee79a',GradientType=0 );
 }
-#login form div a {
+form div a {
 	color: #004a80;
     float: right;
     font-size: 12px;

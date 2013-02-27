@@ -3,6 +3,10 @@ extends layout
 block append styles
 	link(rel='stylesheet', href='/stylesheets/login.css')
 
+block append scripts
+	script(src="/javascripts/login.js")
+
+
 block content
 	.container
 		.login-container
@@ -10,10 +14,28 @@ block content
 				form(method="post", action="/login")
 					h1 Login form
 					div 
-						input(type="text", name="username", placeholder="Nickname", id="username")
+						input(type="text", name="username", placeholder="Nickname", id="username").hpicture
 					div
-						input(type="password", name="password", placeholder="Password", id="password")
+						input(type="password", name="password", placeholder="Password", id="password").ppicture
 					div.clearfix
 						input(type="submit", value="Submit")
 						//- a(href="#") Lost you password
-						a(href="/register") Register
+						a(href="#register") Register
+			section#register
+				form(method="post", action="/register")
+					h1 Register form
+					div
+						input(type="text", name="nickname", placeholder="Nickname")#inputNickname.hpicture
+					div
+						input(type="text", name="name", placeholder="Name")#inputName.hpicture
+					div
+						input(type="text", name="lastname", placeholder="Last name")#inputLastname.hpicture
+					div
+						input(type="text", name="email", placeholder="Email")#inputEmail.hpicture
+					div
+						input(type="password", name="password", placeholder="Password")#inputPass.ppicture
+					div
+						input(type="password", placeholder="Password again")#inputPassAgain.ppicture
+					div.clearfix
+						input(type="submit", value="Register").btn.btn-success
+						a(href="#") Back
