@@ -1,4 +1,5 @@
 
 exports.notExist = function(req, res) {
-	res.render('error404', { title: "File not found" });
+	res.render('error', { title: "File not found",
+		text: "Not found" });
 };

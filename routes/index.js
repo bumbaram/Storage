@@ -21,7 +21,10 @@ exports.index = function(req, res){
 			res.end();
 			return;
 		}
-		res.render('index', {title: 'All files', data: docs, user: req.user});
+		var filesList = JSON.stringify(docs || []);
+		res.render('index', {title: 'All files', 
+			filesList: filesList,
+			user: req.user });
 	});
 };
 
@@ -77,5 +80,35 @@ exports.addFile = function(req, res) {
 		} else {
 			console.info("file was saved to database");
 		}
+	});
+};
+
+
+exports.getAllFiles = function(req, res) {
+	File.find({ owner: req.user._id }, function(err, data) {
+		if (err) {
+			console.error("database error");
+			res.end();
+			return;
+		} 
+		data = data || [];
+		res.json(data);
+		// res.json(JSON.stringify(data));
+	});
+};
+
+exports.getFileById = function(req, res) {
+	File.find({ _id: req.params.id }).where('owner').equals(req.user._id).find(function(err, data) {
+		if (err) {
+			console.error("database error");
+			res.end();
+			return;
+		}
+		if (!data) {
+			console.log('file not found');
+			res.end(404);
+			return;
+		}
+		res.json(JSON.stringify(data));
 	});
 };
