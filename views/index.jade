@@ -12,26 +12,33 @@ block content
 					h1 Upload new file
 		.row-fluid
 			.span1
-			.span5
+			.span10
 				form(action="/file", method="post", enctype="multipart/form-data").form-horizontal
-					.control-group
-						label.control-label Name
-						.controls
-							input(type="text", name="name", placeholder="new file name")
-					.control-group
-						label.control-label Description
-						.controls
-							input(type="text", name="description", placeholder="new file description")
-					.control-group
-						.controls
+					.pull-left
+						.control-group
+							label.control-label Name
+							.controls
+								input(type="text", name="name", placeholder="new file name")
+						.control-group
+							label.control-label Description
+							.controls
+								input(type="text", name="description", placeholder="new file description")
+					.pull-left.offset1
+						.control-group
 							input(type="file", name="file")
-					.control-group
-						.controls
+						.control-group
 							input(type="submit", value="Upload to server").btn.btn-success 
+
 		.row-fluid
 			.span1
 			.span10
-				#files
+				table.table.table-hover#files
+					thead
+						th ID
+						th Name
+						th Description
+
+
 	script(type="text/template")#collection-template
 		table.table.table-hover
 			thead
@@ -40,6 +47,7 @@ block content
 				th Description
 			tbody
 	script(type="text/template")#item-template
-		td <%= id %>
-		td <%= Name %>
-		td <%= Description %>
+		td <%= _id %>
+		td <%= name %>
+		td <%= description %>
+	script(id="data", type="application/JSON") !{filesList}
