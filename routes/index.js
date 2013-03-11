@@ -112,3 +112,33 @@ exports.getFileById = function(req, res) {
 		res.json(JSON.stringify(data));
 	});
 };
+
+exports.deleteFile = function(req, res) {
+	File.find({ _id: req.params.id })
+		.where('owner')
+		.equals(req.user._id)
+		.findOne(function(err, data) {
+			if (err) {
+				console.error("database error");
+				res.end();
+				return;
+			}
+			if (!data) {
+				console.log('file not found in the database');
+				return;
+			}
+			data.remove(function(err, doc) {
+				res.send("Removed");
+			});
+		});
+};
+
+exports.changeFile = function(req, res) {
+	File.find({ _id: req.params.id })
+		.where('owner')
+		.equals(req.user._id)
+		.findOne(function(err, data) {
+			if (err) return 
+
+	});
+};

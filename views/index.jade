@@ -27,8 +27,17 @@ block content
 						.control-group
 							input(type="file", name="file")
 						.control-group
-							input(type="submit", value="Upload to server").btn.btn-success 
+							input(type="submit", value="Upload to server").btn.btn-success
+								i.icon-upload 
 
+		.row-fluid
+			.span7
+			.span4
+				.pull-right
+					button.btn.btn-danger
+						i.icon-trash
+						span  Delete
+			.span1
 		.row-fluid
 			.span1
 			.span10
@@ -45,9 +54,15 @@ block content
 				th ID
 				th Name
 				th Description
+				th
+				th
 			tbody
 	script(type="text/template")#item-template
 		td <%= _id %>
 		td <%= name %>
 		td <%= description %>
-	script(id="data", type="application/JSON") !{filesList}
+		td 
+			input(type="checkbox")
+		td
+			i.icon-trash
+	script(type="text/javascript") var collection = !{filesList}

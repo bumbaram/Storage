@@ -30,6 +30,11 @@ var FileView = Backbone.View.extend({
 
 	className: "file-row",
 
+	events: {
+		"click" : "selectItem",
+		"click .icon-trash" : "removeItem"
+	},
+
 	initialize: function() {
 	},
 
@@ -37,6 +42,18 @@ var FileView = Backbone.View.extend({
 		var template = _.template($("#item-template").html());
 		$(this.el).html(template(this.model.toJSON()));
 		return this;
+	},
+
+	selectItem: function() {
+		if (this.$el.hasClass("info"))
+			this.$el.removeClass("info");
+		else
+			this.$el.addClass("info");
+	},
+
+	removeItem: function(event) {
+		alert("Remove this");
+		event.stopPropagation();
 	}
 });
 
@@ -46,8 +63,7 @@ var AppView = Backbone.View.extend({
 	id: "files-table",
 
 	initialize: function() {
-		var models = document.getElementById('data').innerText;
-		list.reset(JSON.parse(models));
+		list.reset(collection);
 		this.render().addAll();
 	},
 
